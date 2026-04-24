@@ -39,12 +39,23 @@ Re-implement the existing site at <https://www.tkpcarton.com> with:
 
 ### Company facts
 
-- **Name**: Tân Khánh Phong (TKP)
-- **Founded**: 1997
+- **Legal name (VN)**: Công ty TNHH Sản xuất Bao bì và Thương mại Tân Khánh Phong
+- **Legal name (EN)**: TAN KHANH PHONG PRODUCING PACKING AND TRADING COMPANY LIMITED
+- **Abbreviated**: TAN KHANH PHONG PACKING CO.,LTD
+- **Brand**: Tân Khánh Phong (TKP) · TKP Carton
+- **Tax code (MST)**: 0310508516
+- **Legal representative**: DƯƠNG QUỚI TƯỜNG (Mr. Duong Quoi Tuong)
+- **Founded**: 1997 ⚠️ — tax registry lists company activity start as **2010-12-10**. Likely reconciliation: family workshop/`hộ kinh doanh` since 1997, limited company formally incorporated 2010. Confirm exact wording with client before using "since 1997" in any marketing copy (tracked in `__project__/tasks/backlog/client-waiting.md` C17).
 - **Location**: HCMC
-- **Phones**: 028 3766 1614 (landline) · 0909 66 2808 (hotline)
-- **Email on site**: `tankhanhphong@tkpcarrton.com` ⚠️ **typo — double `r`**. Real domain is `tkpcarton.com`. Flag this to the client and confirm correct email before launch.
-- **Stats**: `1997` · `15+` products · `100+` staff · `100+` customers
+- **Address (tax registry)**: 1251 Đường Trần Văn Giàu, Ấp 28, Xã Bình Lợi, TP Hồ Chí Minh
+- **Address (Yellow Pages)**: G2/13 Hamlet 7, Provincial Road 10, Le Minh Xuan Ward, Binh Chanh District, HCMC ⚠️ differs from tax registry — likely administrative renaming or separate office/factory. Confirm with client (`client-waiting.md` C18).
+- **Phones**: 028 3766 1614 (landline) · 0909 66 2808 (hotline) · 028 3766 2868 (alt) · 028 3766 1613 (fax)
+- **Emails seen in public sources** (confirm which is canonical — `client-waiting.md` C01):
+  - `tankhanhphong@tkpcarrton.com` — on current live site, **has typo `tkpcarrton.com`** (double `r`)
+  - `tankhanhphong@tkpcarton.com` — assumed corrected form
+  - `kp_carton@yahoo.com.vn` — listed on Yellow Pages VN
+- **Business categories (VSIC)**: 1702 (corrugated paper/paperboard manufacturing) · 1811 (printing) · 1812 (printing services) · 4649 · 4659 · 4663
+- **Stats as claimed on live site**: `1997` · `15+` products · `100+` staff · `100+` customers (re-verify "since 1997" per C17)
 
 ### Content blocks to preserve
 
