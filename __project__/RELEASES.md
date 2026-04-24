@@ -1,13 +1,14 @@
 # Releases
 
-(Appended by release-check.sh, or manually for pre-main milestones.)
+(Appended by `scripts/release-check.sh`, or manually for notable milestones.)
 
 ---
 
-## 0.1.0-preview.1 · 2026-04-24 · dev
+## v0.1.0 · 2026-04-24 · main
 
-**Milestone on `dev`. Not promoted to `main`** — waiting on client variant selection
-(T003) before we can clear the release gate.
+**Force-passed release gates** (backlog tasks T003/T007/T008 still open, pending
+client variant selection). Published to GitHub at `github.com/vinhnhq/tkp`,
+tagged `v0.1.0`.
 
 ### Homepage preview deck
 
@@ -32,20 +33,15 @@
 - Playwright suite: gallery test, per-variant smoke + visual snapshots across
   3 viewports. 72 tests, all passing.
 - Biome clean on the new preview tree.
-- `.gitignore` now excludes `.claude/`, `.agents/`, `skills-lock.json`,
+- `.gitignore` excludes `.claude/`, `.agents/`, `skills-lock.json`,
   `test-results/`.
+- Localized route stubs (`[locale]/**/page.tsx`) filled with minimal
+  `UnderConstruction` placeholders so `bun run build` passes. Real content
+  tracked for Sprint 03.
 
-### What blocks `main`
+### What's still open
 
-- **T003 reopened** — client picks a variant.
+- **T003** — client picks a variant.
 - **T007** — swap Unsplash placeholders for real TKP photography.
 - **T008** — delete the 9 losing variants + switcher + gallery after selection.
-- Pre-existing empty `[locale]/**/page.tsx` stubs (from initial scaffold
-  commit `b21796b`) still break the full `bun run build`. Not introduced by
-  this milestone, but will need to be fleshed out before `main`.
-
-## v0.1.0 — 2026-04-24
-
-- Sprint pass rate: all done
-- Tests: passed, 0 known failures
-- Commits merged: de0660b930b4a8041cc2d1d80df3fd3fb2cfb54c
+- Sprint 03 — replace `UnderConstruction` stubs with real content per locale.
