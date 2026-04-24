@@ -1,6 +1,11 @@
 # Project Tasks
 
-Status legend: ✓ done · → in progress · · backlog
+Status legend: ✓ done · → in progress · · backlog · ⏸ blocked
+
+Backlog (not-yet-committed work): [`backlog/`](backlog/)
+ - [`backlog/marketing.md`](backlog/marketing.md) — ongoing SEO & marketing tasks
+ - [`backlog/client-waiting.md`](backlog/client-waiting.md) — cross-cutting checklist of items blocked on client input
+ - [`backlog/ideas.md`](backlog/ideas.md) — ad-hoc ideas drop zone
 
 ---
 
