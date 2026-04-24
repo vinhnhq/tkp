@@ -1,0 +1,6 @@
+# Architecture Decision Records
+
+| ADR | Title | Status |
+|-----|-------|--------|
+| [ADR-001](ADR-001-static-content.md) | Static TS content over headless CMS | Accepted |
+| [ADR-002](ADR-002-biome-over-eslint.md) | Biome over ESLint + Prettier | Accepted |

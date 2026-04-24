@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# project-specific
+.claude/settings.local.json
+tkp-assets/
+__tests__/test-results/
+playwright-report/
