@@ -6,10 +6,15 @@ KNOWN_FAILURES=${KNOWN_FAILURES:-0}
 echo "=== Release Gate ==="
 
 # Gate 1: Sprint status
+# Only "· backlog" rows (Committed, not-started) count against release.
+# "↷ stretch" and "⏸ blocked" rows are ignored by design — see the
+# three-bucket model in dev-workflow.md Phase 2. Since this grep matches
+# the exact string "· backlog", stretch and blocked rows are auto-excluded.
 echo "Gate 1: Sprint status..."
-BACKLOG_COUNT=$(grep -c "· backlog" __project__/tasks/README.md || true)
+BACKLOG_COUNT=$(grep -c "^|.*· backlog" __project__/tasks/README.md || true)
 if [ "$BACKLOG_COUNT" -gt 0 ] && [ "${FORCE_PASS:-0}" != "1" ]; then
-  echo "FAIL: $BACKLOG_COUNT tasks still in backlog"
+  echo "FAIL: $BACKLOG_COUNT committed tasks still · backlog"
+  echo "  (demote to ↷ stretch or ⏸ blocked if they won't land this release)"
   exit 1
 fi
 echo "PASS"
@@ -45,7 +50,7 @@ echo "Gate 5: Commits to merge:"
 git log main..HEAD --oneline 2>/dev/null || echo "(none)"
 
 echo ""
-read -p "Type YES to proceed with release: " CONFIRM
+read -p "Type YES to proceed with opening the release PR: " CONFIRM
 if [ "$CONFIRM" != "YES" ]; then
   echo "Release aborted."
   exit 1
@@ -54,24 +59,44 @@ fi
 # Get version from package.json
 VERSION=$(node -p "require('./package.json').version")
 DATE=$(date +%Y-%m-%d)
+COMMIT_SHA=$(git rev-parse --short HEAD)
+COMMIT_LOG=$(git log main..HEAD --oneline 2>/dev/null || echo "(none)")
 
 # Append to RELEASES.md
-cat >> __project__/RELEASES.md << EOF
-
+RELEASE_ENTRY="
 ## v${VERSION} — ${DATE}
 
-- Sprint pass rate: all done
+- Commits ahead of main: ${AHEAD} (tip: ${COMMIT_SHA})
 - Tests: passed, ${KNOWN_FAILURES} known failures
-- Commits merged: $(git rev-parse HEAD)
-EOF
+- Merge: see PR on GitHub
+"
+echo "$RELEASE_ENTRY" >> __project__/tasks/RELEASES.md
 
-git add __project__/RELEASES.md
+git add __project__/tasks/RELEASES.md
 git commit -m "chore: release v${VERSION}"
 git push origin dev
 
-git checkout main
-git merge dev --no-ff -m "release: v${VERSION}"
-git push origin main
-git checkout dev
+# Open the release PR. The merge is a deliberate human click on GitHub
+# after reviewing the Vercel preview and diff — the script never merges
+# to main directly. See dev-workflow.md Phase 6 for rationale.
+PR_BODY="## Release v${VERSION}
+${RELEASE_ENTRY}
+### Commits
 
-echo "Released v${VERSION}"
+\`\`\`
+${COMMIT_LOG}
+\`\`\`
+
+---
+
+Opened automatically by \`scripts/release-check.sh\` after local gates passed.
+Review the Vercel preview (if wired), then merge via \"Create a merge commit\"."
+
+gh pr create \
+  --base main --head dev \
+  --title "release: v${VERSION}" \
+  --body "$PR_BODY"
+
+echo ""
+echo "Opened release PR for v${VERSION}."
+echo "Next: review the PR diff + Vercel preview, then merge via the GitHub UI."

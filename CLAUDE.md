@@ -31,11 +31,25 @@ bun run test      # Playwright e2e tests
 
 Follow `dev-workflow.md`: Spec → Plan → Implement → Test → Review → Release. All development on `dev` branch; `main` is release-only (via `scripts/release-check.sh`).
 
+### Commit convention
+
+Follow `dev-workflow.md` → "Commit message convention". Core rule: **one commit = one semantic type**. Never mix docs and code in the same commit.
+
+- `plan(sprint-NN)` — sprint plan / todo updates
+- `docs(<domain>)` — project docs (brief, backlog, ADRs, dev-workflow, seo)
+- `feat(sprint-NN/TN)` / `fix(sprint-NN/TN)` — code implementing a task
+- `chore` — tooling, deps, version bumps
+
+When a task produces both a plan update and the code, split into at least two commits (plan first, then code).
+
 ### Project management files
 
-- `__project__/tasks/README.md` — master task board (backlog/in-progress/done)
+- `__project__/tasks/README.md` — master task board (backlog / in-progress / done / blocked)
+- `__project__/tasks/sprint-NN-name/` — sprint plan + todo
+- `__project__/tasks/backlog/` — uncommitted work: marketing, client-waiting, ideas
 - `__project__/docs/decisions/` — ADRs
-- `__project__/RELEASES.md` — append-only release log
+- `__project__/docs/seo/` — SEO & marketing reference docs (playbook, og-cards, keywords, content-plan)
+- `__project__/tasks/RELEASES.md` — append-only release log
 
 ## Architecture
 
