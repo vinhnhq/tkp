@@ -11,7 +11,7 @@ echo "=== Release Gate ==="
 # three-bucket model in dev-workflow.md Phase 2. Since this grep matches
 # the exact string "· backlog", stretch and blocked rows are auto-excluded.
 echo "Gate 1: Sprint status..."
-BACKLOG_COUNT=$(grep -c "· backlog" __project__/tasks/README.md || true)
+BACKLOG_COUNT=$(grep -c "^|.*· backlog" __project__/tasks/README.md || true)
 if [ "$BACKLOG_COUNT" -gt 0 ] && [ "${FORCE_PASS:-0}" != "1" ]; then
   echo "FAIL: $BACKLOG_COUNT committed tasks still · backlog"
   echo "  (demote to ↷ stretch or ⏸ blocked if they won't land this release)"
