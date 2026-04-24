@@ -43,3 +43,9 @@
 - Pre-existing empty `[locale]/**/page.tsx` stubs (from initial scaffold
   commit `b21796b`) still break the full `bun run build`. Not introduced by
   this milestone, but will need to be fleshed out before `main`.
+
+## v0.1.0 — 2026-04-24
+
+- Sprint pass rate: all done
+- Tests: passed, 0 known failures
+- Commits merged: de0660b930b4a8041cc2d1d80df3fd3fb2cfb54c
