@@ -25,3 +25,26 @@ Backlog (not-yet-committed work): [`backlog/`](backlog/)
 | T006 | Add Customers / "Tự hào phục vụ" logo wall section | ✓ done (all 10 variants, logos-02..09) |
 | T007 | Swap Unsplash placeholders → real TKP photography | · backlog (after T003 sign-off) |
 | T008 | Delete unused variants after selection | · backlog (remove V1–V10 except winner, then remove PreviewSwitcher) |
+
+## Sprint 03 — SEO & Marketing Foundation
+See [plan.md](sprint-03-seo-and-marketing/plan.md) · [todo.md](sprint-03-seo-and-marketing/todo.md)
+
+| # | Task | Status |
+|---|------|--------|
+| T301 | `buildMetadata()` helper in `src/lib/seo.ts` | · backlog |
+| T302 | Per-page metadata wiring (replace default Next metadata) | · backlog |
+| T303 | `sitemap.ts` with locale × route combos + hreflang | · backlog |
+| T304 | `robots.ts` (prod allow, preview disallow) | · backlog |
+| T305a | JSON-LD type builders in `src/lib/seo/schema.ts` (scaffolding — ready) | · backlog |
+| T305b | JSON-LD data wiring + per-page injection | ⏸ blocked (client answers) |
+| T306 | Legacy VN slug 301 redirects in `next.config.ts` | · backlog |
+| T307 | Image alt text audit in active locale | · backlog |
+| T308 | Google Business Profile created + verified | · backlog (client coord) |
+| T309 | Search Console verified + sitemap submitted + GA4 installed | · backlog (client coord) |
+| T310 | Collect social `sameAs` URLs from client | · backlog (client coord) |
+| T311 | Keyword map doc — per page, primary + secondary + long-tail | · backlog |
+| T312 | ADR-004 — original content over scraped blog | ✓ done |
+| T313 | Content plan — 5–8 pillar topics with keyword + angle | · backlog |
+| T314 | Blog architecture decision (routing, format, scope) | · backlog |
+| T315 | Logo wall permission + alt-text audit | · backlog |
+| T316 | Product-page trust-signal copy | · backlog (Sprint 04) |
