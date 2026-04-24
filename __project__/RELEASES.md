@@ -4,6 +4,19 @@
 
 ---
 
+## v0.1.1 · 2026-04-24 · main
+
+Patch release. No user-facing changes — pipeline / build fixes only.
+
+- `[locale]/**/page.tsx` stubs filled with a minimal `UnderConstruction`
+  placeholder + `[locale]/layout.tsx` wires `NextIntlClientProvider`. `bun run
+  build` now succeeds end-to-end (was previously blocked by empty stubs from
+  the initial scaffold).
+- RELEASES.md consolidated — dropped the pre-merge `0.1.0-preview.1` section
+  and merged the script's auto-entry into the rich v0.1.0 block.
+
+---
+
 ## v0.1.0 · 2026-04-24 · main
 
 **Force-passed release gates** (backlog tasks T003/T007/T008 still open, pending
