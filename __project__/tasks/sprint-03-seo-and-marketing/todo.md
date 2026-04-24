@@ -8,11 +8,11 @@ Status legend: `·` backlog · `→` in progress · `✓` done · `⏸` blocked
 
 ### Track A — Code (~half day focused work)
 
-- [ ] **T301** · `buildMetadata()` helper in `src/lib/seo.ts` · ~1h
-- [ ] **T303** · `src/app/sitemap.ts` skeleton (locale × route combos + hreflang) · ~30min
-- [ ] **T304** · `src/app/robots.ts` (prod allow, preview disallow via `VERCEL_ENV`) · ~15min
-- [ ] **T305a** · JSON-LD type builders in `src/lib/seo/schema.ts` · ~1h
-- [ ] **T306 (audit only)** · Crawl old sitemap, list every URL, map to new paths. Wiring into `next.config.ts` can wait · ~1h
+- [x] ✓ **T301** · `buildMetadata()` helper in `src/lib/seo.ts` · ~1h
+- [x] ✓ **T303** · `src/app/sitemap.ts` skeleton (locale × route combos + hreflang) · ~30min
+- [x] ✓ **T304** · `src/app/robots.ts` (prod allow, preview disallow via `VERCEL_ENV`) · ~15min
+- [x] ✓ **T305a** · JSON-LD type builders in `src/lib/seo/schema.ts` · ~1h
+- [x] ✓ **T306 (audit only)** · Legacy URL inventory → [`docs/seo/legacy-url-audit.md`](../../docs/seo/legacy-url-audit.md). Wiring into `next.config.ts` deferred · ~1h
 
 ### Track C — Docs (~2-3h)
 

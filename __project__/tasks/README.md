@@ -31,13 +31,13 @@ See [plan.md](sprint-03-seo-and-marketing/plan.md) · [todo.md](sprint-03-seo-an
 
 | # | Task | Status |
 |---|------|--------|
-| T301 | `buildMetadata()` helper in `src/lib/seo.ts` | · backlog |
+| T301 | `buildMetadata()` helper in `src/lib/seo.ts` | ✓ done |
 | T302 | Per-page metadata wiring (replace default Next metadata) | · backlog |
-| T303 | `sitemap.ts` with locale × route combos + hreflang | · backlog |
-| T304 | `robots.ts` (prod allow, preview disallow) | · backlog |
-| T305a | JSON-LD type builders in `src/lib/seo/schema.ts` (scaffolding — ready) | · backlog |
+| T303 | `sitemap.ts` with locale × route combos + hreflang | ✓ done |
+| T304 | `robots.ts` (prod allow, preview disallow) | ✓ done |
+| T305a | JSON-LD type builders in `src/lib/seo/schema.ts` (scaffolding — ready) | ✓ done |
 | T305b | JSON-LD data wiring + per-page injection | ⏸ blocked (client answers) |
-| T306 | Legacy VN slug 301 redirects in `next.config.ts` | · backlog |
+| T306 | Legacy VN slug 301 redirects in `next.config.ts` | → audit done · wiring deferred |
 | T307 | Image alt text audit in active locale | · backlog |
 | T308 | Google Business Profile created + verified | · backlog (client coord) |
 | T309 | Search Console verified + sitemap submitted + GA4 installed | · backlog (client coord) |
