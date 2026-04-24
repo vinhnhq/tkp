@@ -6,10 +6,15 @@ KNOWN_FAILURES=${KNOWN_FAILURES:-0}
 echo "=== Release Gate ==="
 
 # Gate 1: Sprint status
+# Only "· backlog" rows (Committed, not-started) count against release.
+# "↷ stretch" and "⏸ blocked" rows are ignored by design — see the
+# three-bucket model in dev-workflow.md Phase 2. Since this grep matches
+# the exact string "· backlog", stretch and blocked rows are auto-excluded.
 echo "Gate 1: Sprint status..."
 BACKLOG_COUNT=$(grep -c "· backlog" __project__/tasks/README.md || true)
 if [ "$BACKLOG_COUNT" -gt 0 ] && [ "${FORCE_PASS:-0}" != "1" ]; then
-  echo "FAIL: $BACKLOG_COUNT tasks still in backlog"
+  echo "FAIL: $BACKLOG_COUNT committed tasks still · backlog"
+  echo "  (demote to ↷ stretch or ⏸ blocked if they won't land this release)"
   exit 1
 fi
 echo "PASS"
