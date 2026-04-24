@@ -68,11 +68,50 @@ When filling the matrix, bias toward **2-3 devices max** in CI — the full proj
 {
   "formatter": { "indentStyle": "tab" },
   "javascript": { "formatter": { "quoteStyle": "double" } },
-  "linter": { "enabled": true, "rules": { "recommended": true } }
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": {
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": { "filenameCases": ["kebab-case"] }
+        }
+      }
+    }
+  }
 }
 ```
 
-Tab indent keeps diffs small and accommodates any reader's preferred width. Double quotes match Next.js + TS ecosystem convention.
+Tab indent keeps diffs small and accommodates any reader's preferred width. Double quotes match Next.js + TS ecosystem convention. `useFilenamingConvention` is the CI gate that enforces the file naming rule below — see "File naming".
+
+---
+
+## File naming
+
+**Rule:** every source file uses `kebab-case`. Filenames are `xxx-yyy-zzz.tsx`. Exported symbols keep their natural casing — React components stay PascalCase, hooks stay camelCase. **Filenames and exports are different things with different audiences.**
+
+```
+// good
+src/components/ui/magnetic-link.tsx       →  export function MagneticLink()
+src/components/sections/product-range.tsx →  export function ProductRange()
+src/lib/build-metadata.ts                 →  export function buildMetadata()
+
+// avoid
+src/components/ui/MagneticLink.tsx        ← PascalCase filename
+src/components/sections/productRange.tsx  ← camelCase filename
+```
+
+**Exceptions (do not rename):**
+
+- **Next.js App Router special files** — `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, `route.ts`, `template.tsx`, `default.tsx`, `middleware.ts`, `sitemap.ts`, `robots.ts`, `manifest.ts`, `opengraph-image.tsx`, `icon.tsx`, `apple-icon.tsx`. Next.js reserves these names — case and spelling matter.
+- **Dynamic route segments** — `[slug]`, `[...slug]`, `[[...slug]]`. Next.js syntax.
+- **Private folder prefix** — `_components/`, `_lib/`. Next.js syntax.
+- **Third-party configs** — `next.config.ts`, `tailwind.config.ts`, `playwright.config.ts`, `biome.json`, `tsconfig.json`, etc. Tools dictate their own filenames.
+
+**Enforcement:** the Biome `useFilenamingConvention` rule in the config above catches PascalCase and camelCase filenames on every `bun run lint` and in CI. Docs rot; the lint rule does not.
+
+**macOS note:** the default macOS filesystem is case-insensitive. Renaming `Header.tsx` → `header.tsx` requires a two-step `git mv` (`git mv Header.tsx header.tmp.tsx && git mv header.tmp.tsx header.tsx`) or the rename is silently ignored by git.
 
 ---
 
