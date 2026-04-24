@@ -122,7 +122,7 @@ Key rule: **`sprint-NN-name/` = committed work. `backlog/` = uncommitted.** Spri
 ```markdown
 # Project Tasks
 
-Status legend: ✓ done · → in progress · · backlog · ⏸ blocked
+Status legend: ✓ done · → in progress · · backlog · ↷ stretch · ⏸ blocked
 
 Backlog (not-yet-committed work): [`backlog/`](backlog/)
  - [`backlog/<domain>.md`](backlog/<domain>.md) — ongoing topical tasks
@@ -137,7 +137,21 @@ Backlog (not-yet-committed work): [`backlog/`](backlog/)
 | NNN | [Task title](sprint-NN-name/NNN-task-slug.md) | · backlog |
 ```
 
-Status values: `✓ done`, `→ in progress`, `· backlog`, `⏸ blocked`. The release gate counts backlog rows in sprint tables — a non-zero count blocks release. Items inside `backlog/` files are **not counted** — they are explicitly uncommitted.
+Status values and the three-bucket model:
+
+| Status | Bucket | Counts against release gate? |
+|--------|--------|------------------------------|
+| `· backlog` | **Committed** — planned, you intend to finish this sprint, not started yet | Yes — blocks release until `✓ done` or demoted |
+| `→ in progress` | **Committed** — actively being worked | Yes — release waits for `✓ done` |
+| `✓ done` | **Committed** — acceptance criteria met | No — satisfies gate |
+| `↷ stretch` | **Stretch** — planned and ready, but not committed this cycle. Pick up if capacity allows; otherwise rolls forward visibly | No — ignored by gate |
+| `⏸ blocked` | **Blocked** — cannot start until an external dependency clears (client answer, upstream sprint, decision, etc) | No — ignored by gate |
+
+**Why three buckets, not two.** Keeping Stretch and Blocked visible inside the sprint (rather than exiling them to `backlog/` files) means you see the full shape of the sprint at a glance — what you committed to, what you'd grab if you had more time, what's parked on someone else's reply. Burying them in `backlog/` hides the dependency when it actually clears. The release gate stays accurate because only `· backlog` rows count — Stretch and Blocked are noise-free by the glyph.
+
+**Rule of thumb for picking a bucket.** If you would be embarrassed to release the sprint without this task → Committed. If you hope to land it but it's fine if it rolls forward → Stretch. If progress is externally gated → Blocked. When unsure, prefer Stretch over Committed — under-committing and over-delivering beats the reverse every time.
+
+Items inside `backlog/` files are **not counted** by any gate — they are explicitly uncommitted and exist outside the sprint concept.
 
 ### `plan.md` format
 
@@ -157,12 +171,28 @@ Status values: `✓ done`, `→ in progress`, `· backlog`, `⏸ blocked`. The r
 
 ### `todo.md` format
 
+Group tasks by bucket so the sprint's shape is readable at a glance. Committed is the release-blocking set; Stretch is the reach list; Blocked names what's parked on someone else.
+
 ```markdown
 # Todo: <Sprint Name>
 
-- [ ] Task 1: <title>
-- [ ] Task 2: <title>
+Status legend: ✓ done · → in progress · · backlog · ↷ stretch · ⏸ blocked
+
+## Committed (must finish to release)
+
+- [ ] **T101** · <task title> · ~<effort>
+- [ ] **T102** · <task title> · ~<effort>
+
+## Stretch (pick up if capacity allows)
+
+- [ ] ↷ **T103** · <task title> · ~<effort> · <why not committed>
+
+## Blocked (waiting on external dependency)
+
+- [ ] ⏸ **T104** · <task title> · blocked on <who/what> · unblocks when <condition>
 ```
+
+When a Stretch task gets pulled in mid-sprint, promote it to Committed (remove the `↷`). When a Blocked task's dependency clears, promote to Committed the same way. When a Committed task clearly won't land this cycle, demote to Stretch rather than deleting — the sprint plan's accuracy matters for the release gate to mean something.
 
 ### Backlog conventions
 
@@ -175,7 +205,7 @@ Ongoing topical work that spans sprints. Examples: `marketing.md`, `ops.md`, `in
 ```markdown
 # <Domain> Backlog
 
-Status legend: ✓ done · → in progress · · backlog · ⏸ blocked
+Status legend: ✓ done · → in progress · · backlog · ↷ stretch · ⏸ blocked
 
 ## <Category> — <short name>
 | # | Task | Status | Notes |
@@ -401,6 +431,8 @@ The gate runs sequential checks. Any failure exits non-zero and blocks the relea
 
 ```
 Gate 1: Sprint status     — grep "· backlog" in sprint tables of tasks/README.md. FAIL if count > 0.
+                             Only "· backlog" rows (Committed, not started) count. "↷ stretch" and "⏸ blocked"
+                             rows are ignored by design — see Phase 2 three-bucket model.
 Gate 2: Test suite        — run the project's test command (see preset). FAIL if failures > KNOWN_FAILURES.
 Gate 3: Git dirty check   — git status --porcelain. FAIL if working tree is dirty.
 Gate 4: Commits ahead     — git rev-list main..HEAD --count. WARN if 0.
@@ -527,7 +559,7 @@ mkdir -p __project__/tasks/backlog __project__/docs/decisions .claude
 cat > __project__/tasks/README.md <<'EOF'
 # Project Tasks
 
-Status legend: ✓ done · → in progress · · backlog · ⏸ blocked
+Status legend: ✓ done · → in progress · · backlog · ↷ stretch · ⏸ blocked
 
 Backlog (not-yet-committed work): [`backlog/`](backlog/)
  - [`backlog/ideas.md`](backlog/ideas.md) — ad-hoc ideas drop zone
