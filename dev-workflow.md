@@ -412,13 +412,24 @@ Owner values: `you` (developer), `AI` (agent), `collab` (iterated together)
 
 ## Phase 6 — Release
 
-**Entry:** All tasks `✓ done`, tests pass, working on `dev` branch.  
-**Exit:** `dev` merged to `main` with a non-fast-forward merge commit. Release logged.
+**Entry:** All committed tasks `✓ done`, tests pass, working on `dev` branch.  
+**Exit:** `dev` merged to `main` via a reviewed PR. Release logged.
 
 ### Branch model
 
 - `dev` — working branch. All development happens here.
-- `main` — release-only. Updated exclusively via the release gate script. Never commit directly to `main`.
+- `main` — release-only. Updated exclusively via a PR opened by the release gate script. Never commit directly to `main`.
+
+### Release via PR, not direct merge
+
+The gate script stops at opening a PR — it never merges to `main` itself. The merge is a deliberate human click on GitHub after the PR is reviewed. Rationale:
+
+- **Production preview.** If the platform (Vercel, Netlify, etc.) is wired to auto-deploy `main`, clicking merge *is* the production deploy. A PR exposes a merge-candidate preview so you smoke-test the production build *before* the deploy triggers, not after.
+- **Safer rollback.** GitHub's "Revert" button on a merged PR generates a clean reverse-merge commit. Doing that manually under pressure is error-prone.
+- **Diff-linked release notes.** The PR body is a permanent, searchable archive of what shipped — complements the terse `RELEASES.md` entry with the actual file-level changes.
+- **Cold-reviewer discipline.** Even for a solo project, reading the full diff on a PR (not in your editor) catches things a mid-implementation review misses.
+
+The gate's job is to make the PR ready. The human's job is to click merge.
 
 ### Version bump (manual, before running the gate)
 
@@ -430,7 +441,7 @@ Owner values: `you` (developer), `AI` (agent), `collab` (iterated together)
 The gate runs sequential checks. Any failure exits non-zero and blocks the release.
 
 ```
-Gate 1: Sprint status     — grep "· backlog" in sprint tables of tasks/README.md. FAIL if count > 0.
+Gate 1: Sprint status     — grep "^|.*· backlog" in sprint tables of tasks/README.md. FAIL if count > 0.
                              Only "· backlog" rows (Committed, not started) count. "↷ stretch" and "⏸ blocked"
                              rows are ignored by design — see Phase 2 three-bucket model.
 Gate 2: Test suite        — run the project's test command (see preset). FAIL if failures > KNOWN_FAILURES.
@@ -438,14 +449,13 @@ Gate 3: Git dirty check   — git status --porcelain. FAIL if working tree is di
 Gate 4: Commits ahead     — git rev-list main..HEAD --count. WARN if 0.
 Gate 5: Commit list       — print git log main..HEAD --oneline for review.
 
-→ Prompt: "Type YES to proceed:"
+→ Prompt: "Type YES to proceed with opening the release PR:"
 
 On YES:
-  1. Append entry to __project__/RELEASES.md on dev
+  1. Append entry to __project__/tasks/RELEASES.md on dev
   2. git add + commit + push origin dev
-  3. git checkout main && git merge dev --no-ff -m "release: vX.Y.Z"
-  4. git push origin main
-  5. git checkout dev
+  3. gh pr create --base main --head dev --title "release: vX.Y.Z" --body <release notes>
+  4. STOP — merge is a human click on GitHub after PR + preview review
 ```
 
 ### `RELEASES.md` entry format (written by gate script)
@@ -453,10 +463,12 @@ On YES:
 ```markdown
 ## vX.Y.Z — YYYY-MM-DD
 
-- Sprint pass rate: N/N tasks done
-- Tests: N passed, N known failures
-- Commits merged: <dev SHA>
+- Commits ahead of main: N (tip: <short SHA>)
+- Tests: passed, N known failures
+- Merge: see PR on GitHub
 ```
+
+The PR body duplicates this entry and adds the full commit list so reviewers have sprint-level context alongside the file-level diff.
 
 ### Environment escape hatches (for testing the gate script itself)
 
