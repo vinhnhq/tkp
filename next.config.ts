@@ -6,7 +6,9 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const nextConfig: NextConfig = {
 	async redirects() {
 		return [
-			{ source: "/", destination: "/vi", permanent: false },
+			// Preview phase: land on the V4 design. Restore `/vi` once the
+			// [locale] scaffold pages are populated.
+			{ source: "/", destination: "/homepage-preview", permanent: false },
 		];
 	},
 	async rewrites() {

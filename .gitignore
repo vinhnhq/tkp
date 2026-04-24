@@ -41,7 +41,11 @@ yarn-error.log*
 next-env.d.ts
 
 # project-specific
-.claude/settings.local.json
+.claude/
+.agents/
+skills-lock.json
 tkp-assets/
+raw-assets/
 __tests__/test-results/
+test-results/
 playwright-report/

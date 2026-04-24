@@ -3,7 +3,7 @@
 @theme {
   /* Colors — minimal factory */
   --color-kraft-50: #faf7f2;
-  --color-kraft-100: #f0ead f;
+  --color-kraft-100: #f0eadf;
   --color-kraft-200: #e2d5bf;
   --color-kraft-400: #c4a57a;
   --color-kraft-600: #8c6a3f;
@@ -23,5 +23,10 @@
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-html { scroll-behavior: auto; }
-body { background: var(--color-paper); color: var(--color-ink); }
+html {
+	scroll-behavior: auto;
+}
+body {
+	background: var(--color-paper);
+	color: var(--color-ink);
+}

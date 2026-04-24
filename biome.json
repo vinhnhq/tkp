@@ -1,6 +1,15 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "formatter": { "indentStyle": "tab" },
-  "javascript": { "formatter": { "quoteStyle": "double" } },
-  "linter": { "enabled": true, "rules": { "recommended": true } }
+	"$schema": "https://biomejs.dev/schemas/2.4.13/schema.json",
+	"files": {
+		"includes": [
+			"**",
+			"!**/raw-assets",
+			"!**/.next",
+			"!**/node_modules",
+			"!**/public"
+		]
+	},
+	"formatter": { "indentStyle": "tab" },
+	"javascript": { "formatter": { "quoteStyle": "double" } },
+	"linter": { "enabled": true, "rules": { "recommended": true } }
 }
