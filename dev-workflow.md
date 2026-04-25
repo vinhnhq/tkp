@@ -358,6 +358,92 @@ Update `tasks/README.md` as each task completes:
 
 ---
 
+### Team mode (when 2+ contributors)
+
+The default workflow above is **solo mode** — direct commits to `dev`, no review gate, no CI between you and the trunk. That's the right shape when team size is 1: zero overhead, zero ceremony.
+
+When a second person joins the codebase, switch to **team mode**. The shape changes from "push to dev directly" to "branch off dev, PR back to dev, CI gates the merge."
+
+#### Daily flow in team mode
+
+```
+1. git checkout dev && git pull
+2. git checkout -b feat/T401-short-description
+3. ... commit work in thin slices, same conventions as solo mode ...
+4. git push -u origin feat/T401-short-description
+5. gh pr create --base dev --title "feat(sprint-NN/TN): description"
+6. CI runs (lint + build + unit tests)
+7. Teammate reviews + approves
+8. Merge into dev — see "Merge mode" below for which button to click
+9. git checkout dev && git pull && git branch -d feat/T401-short-description
+```
+
+#### Branch naming convention
+
+```
+feat/T401-product-detail-page          new feature
+fix/T402-canonical-url-trailing-slash  bug fix
+chore/T403-add-ci-workflow             tooling, deps, config
+refactor/T404-extract-shared-content   internal restructuring
+docs/T405-update-onboarding-section    docs-only
+```
+
+The `T<NNN>-` prefix ties the branch back to the sprint task. Skip the prefix only for ad-hoc work that doesn't have a task ID — but most work should have one.
+
+#### Merge mode (which GitHub button to click)
+
+| When merging into | Button | Why |
+|-------------------|--------|-----|
+| `dev` from a **clean atomic-commit** feature branch | **Rebase and merge** | Preserves your `feat(...)` / `fix(...)` commits on `dev` without merge-commit clutter |
+| `dev` from a **messy WIP** feature branch | **Squash and merge** | Throws away `wip` / `try again` / `oops` commits, lands one clean commit |
+| `main` from `dev` (release PR) | **Create a merge commit** | Preserves all commits on `main` exactly as built; merge commit marks the release boundary atomically. Never squash or rebase release PRs. |
+
+The release PR rule is non-negotiable. Squashing the release PR destroys the atomic-commit history that the sprint convention worked to produce, and rebasing erases the release-boundary marker (`git revert -m 1 <merge-sha>` becomes impossible).
+
+#### CI gate
+
+The `.github/workflows/ci.yml` workflow runs on every PR to `dev` or `main`:
+
+- **PRs to `dev`**: lint + build + unit tests (~30-60s). Fast feedback for daily flow.
+- **PRs to `main`** (release PRs): lint + build + unit tests **plus** Playwright E2E. Full confidence at the release boundary, where the extra ~90s is well-spent.
+
+CI must be green before merge. No exceptions; if it's red, fix the underlying cause rather than re-running until it passes.
+
+#### Branch protection setup checklist (manual, GitHub UI)
+
+Branch protection enforces the team-mode rules at the platform level — without it, anyone can push directly to `dev` and bypass CI/review. Enable when the repo is eligible (GitHub Pro plan or public repo; the free private plan refuses).
+
+**Repository → Settings → Branches → Add branch protection rule**:
+
+```
+Branch name pattern: dev
+[✓] Require a pull request before merging
+    [✓] Require approvals — at least 1
+    [✓] Dismiss stale pull request approvals when new commits are pushed
+[✓] Require status checks to pass before merging
+    [✓] Require branches to be up to date before merging
+    Required status checks: "Lint · Build · Unit tests"
+[✓] Require linear history   ← optional; pick this if you want rebase-and-merge enforced
+[ ] Allow force pushes       ← OFF
+[ ] Allow deletions          ← OFF
+```
+
+Repeat for `main` with the same rules plus the Playwright check as required:
+
+```
+Branch name pattern: main
+[✓] (same as above)
+    Required status checks: "Lint · Build · Unit tests", "Playwright (PRs to main only)"
+```
+
+After enabling, verify by attempting to push directly to `dev` — git should refuse. If it succeeds, the rule isn't applied; check that "Include administrators" is on so it applies to repo owners too.
+
+#### When to switch back to solo mode
+
+Switch back when team size returns to 1. Branch protection on `dev` becomes friction without payoff — every change goes through a PR you'd review against yourself. Disable the rules; keep the CI workflow (it still helps catch local breakage before push). Solo mode + CI is a strictly better solo experience than no-CI solo mode.
+
+---
+
 ## Phase 4 — Test
 
 **Entry:** Implementation complete for the task.  
@@ -445,9 +531,12 @@ Gate 1: Sprint status     — grep "^|.*· backlog" in sprint tables of tasks/RE
                              Only "· backlog" rows (Committed, not started) count. "↷ stretch" and "⏸ blocked"
                              rows are ignored by design — see Phase 2 three-bucket model.
 Gate 2: Test suite        — run the project's test command (see preset). FAIL if failures > KNOWN_FAILURES.
-Gate 3: Git dirty check   — git status --porcelain. FAIL if working tree is dirty.
-Gate 4: Commits ahead     — git rev-list main..HEAD --count. WARN if 0.
-Gate 5: Commit list       — print git log main..HEAD --oneline for review.
+Gate 3: Sync check        — git fetch origin dev; FAIL if `git rev-list HEAD..origin/dev --count` > 0.
+                             Catches "local clone is behind teammates' pushes" before the release PR opens
+                             from a stale state. In solo mode this gate is a no-op (you are origin/dev).
+Gate 4: Git dirty check   — git status --porcelain. FAIL if working tree is dirty.
+Gate 5: Commits ahead     — git rev-list main..HEAD --count. WARN if 0.
+Gate 6: Commit list       — print git log main..HEAD --oneline for review.
 
 → Prompt: "Type YES to proceed with opening the release PR:"
 

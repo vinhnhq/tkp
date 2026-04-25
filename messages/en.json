@@ -1,8 +1,8 @@
 {
-  "nav": {
-    "products": "Products",
-    "process": "Process",
-    "about": "About",
-    "contact": "Contact"
-  }
+	"nav": {
+		"products": "Products",
+		"process": "Process",
+		"about": "About",
+		"contact": "Contact"
+	}
 }

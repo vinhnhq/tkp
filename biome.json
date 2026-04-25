@@ -6,7 +6,9 @@
 			"!**/raw-assets",
 			"!**/.next",
 			"!**/node_modules",
-			"!**/public"
+			"!**/public",
+			"!.claude",
+			"!**/*.css"
 		]
 	},
 	"formatter": { "indentStyle": "tab" },
