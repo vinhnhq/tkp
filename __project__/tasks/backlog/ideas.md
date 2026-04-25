@@ -40,3 +40,20 @@ Verify: `bun run build` + `bun test src/` + `bun run lint` green after each comm
 **Effort guess:** small (~45 min — mechanical)
 **Move to:** pick up before Sprint 04 starts (so Sprint 04 component files land on the new convention from the start)
 
+---
+
+## Team-mode workflow hardening (when 2+ contributors join)
+
+**Source:** 2026-04-25 conversation about whether the current solo-shaped workflow scales to a 4-5 person team. Verdict: bones are right, three gaps need filling — but only when a real teammate arrives, not before.
+**Idea:** When the second contributor joins, harden `dev` to act as a proper team trunk: feature branches PR into `dev`, CI gates each PR, branch protection enforces it. `main` stays release-only via the existing PR flow. The three-bucket sprint model (Committed / Stretch / Blocked) carries over unchanged.
+
+Four changes, in order of importance:
+
+1. **`.github/workflows/ci.yml`** — runs `bun run lint && bun run build && bun test src/ && bun run test` on every PR to `dev` and `main`. Blocks merge if red. Cheapest win, biggest impact. ~20 min.
+2. **`dev-workflow.md` — add a "Team mode (2+ contributors)" section.** Spells out: feature-branch + PR-to-dev for daily work; direct commits to `dev` only allowed in solo mode (the current setup). Naming convention: `feat/T401-description`, `fix/...`, `chore/...`. ~30 min.
+3. **Branch protection on `dev`** — require PR + 1 approval + CI green before merge. Configured via GitHub UI (needs Pro plan or public repo for free). 5 min once eligible.
+4. **Update `release-check.sh` Gate 3** — also check `dev` is up to date with `origin/dev` (your local may be behind the team's). Add `git fetch origin && git rev-list HEAD..origin/dev --count` before the dirty check. 10 min.
+
+**Effort guess:** medium (~1.5h total across 4 commits)
+**Move to:** pick up when a second contributor is genuinely joining the codebase — not earlier. Pre-building for a team that doesn't exist adds overhead without payoff. Solo mode = current workflow.
+
