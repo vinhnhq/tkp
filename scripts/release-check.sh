@@ -28,8 +28,29 @@ else
   echo "Gate 2: SKIPPED"
 fi
 
-# Gate 3: Git dirty check
-echo "Gate 3: Git dirty check..."
+# Gate 3: Sync check (local dev vs origin/dev)
+# In team mode, your local dev may be behind teammates' pushes. Releasing
+# from a stale local clone misses their work. Fetch origin/dev and fail
+# loudly if local is behind.
+echo "Gate 3: Sync check (local dev vs origin/dev)..."
+if ! git fetch origin dev --quiet 2>/dev/null; then
+  if [ "${FORCE_PASS:-0}" != "1" ]; then
+    echo "FAIL: could not fetch origin/dev (network or auth issue)"
+    exit 1
+  fi
+  echo "WARN: could not fetch origin/dev — skipping (FORCE_PASS=1)"
+else
+  BEHIND=$(git rev-list HEAD..origin/dev --count 2>/dev/null || echo "0")
+  if [ "$BEHIND" -gt 0 ] && [ "${FORCE_PASS:-0}" != "1" ]; then
+    echo "FAIL: local dev is behind origin/dev by $BEHIND commits"
+    echo "  run 'git pull origin dev' to sync, then re-run the release gate"
+    exit 1
+  fi
+fi
+echo "PASS"
+
+# Gate 4: Git dirty check
+echo "Gate 4: Git dirty check..."
 if [ -n "$(git status --porcelain)" ] && [ "${FORCE_PASS:-0}" != "1" ]; then
   echo "FAIL: Working tree is dirty"
   git status --short
@@ -37,16 +58,16 @@ if [ -n "$(git status --porcelain)" ] && [ "${FORCE_PASS:-0}" != "1" ]; then
 fi
 echo "PASS"
 
-# Gate 4: Commits ahead
-echo "Gate 4: Commits ahead of main..."
+# Gate 5: Commits ahead
+echo "Gate 5: Commits ahead of main..."
 AHEAD=$(git rev-list main..HEAD --count 2>/dev/null || echo "0")
 if [ "$AHEAD" -eq 0 ]; then
   echo "WARN: No commits ahead of main"
 fi
 echo "Commits ahead: $AHEAD"
 
-# Gate 5: Commit list
-echo "Gate 5: Commits to merge:"
+# Gate 6: Commit list
+echo "Gate 6: Commits to merge:"
 git log main..HEAD --oneline 2>/dev/null || echo "(none)"
 
 echo ""
