@@ -37,7 +37,7 @@ See [plan.md](sprint-03-seo-and-marketing/plan.md) · [todo.md](sprint-03-seo-an
 | T304 | `robots.ts` (prod allow, preview disallow) | ✓ done |
 | T305a | JSON-LD type builders in `src/lib/seo/schema.ts` (scaffolding — ready) | ✓ done |
 | T305b | JSON-LD data wiring + per-page injection | ⏸ blocked (client answers C01–C03, C17–C19) |
-| T306 | Legacy VN slug 301 redirects in `next.config.ts` | ⏸ blocked (audit ✓ · wiring waits on Sprint 04) |
+| T306 | Legacy VN slug 301 redirects in `next.config.ts` | ⏸ blocked (audit ✓ · wiring waits on Sprint 05) |
 | T307 | Image alt text audit in active locale | ⏸ blocked (theme lock + final imagery) |
 | T308 | Google Business Profile created + verified | ⏸ blocked (C08 client coord) |
 | T309 | Search Console verified + sitemap submitted + GA4 installed | ⏸ blocked (C08 client coord) |
@@ -47,4 +47,14 @@ See [plan.md](sprint-03-seo-and-marketing/plan.md) · [todo.md](sprint-03-seo-an
 | T313 | Content plan — 5–8 pillar topics with keyword + angle | ↷ stretch |
 | T314 | Blog architecture decision (routing, format, scope) | ↷ stretch |
 | T315 | Logo wall permission + alt-text audit | ⏸ blocked (C07 client coord) |
-| T316 | Product-page trust-signal copy | ↷ stretch (Sprint 04) |
+| T316 | Product-page trust-signal copy | ↷ stretch (Sprint 05) |
+
+## Sprint 04 — Team-mode workflow hardening
+See [plan.md](sprint-04-team-mode-hardening/plan.md) · [todo.md](sprint-04-team-mode-hardening/todo.md)
+
+| # | Task | Status |
+|---|------|--------|
+| T401 | GitHub Actions CI workflow (lint + build + unit tests) | · backlog |
+| T402 | `release-check.sh` — origin/dev sync gate | · backlog |
+| T403 | `dev-workflow.md` — team-mode section + branch protection checklist | · backlog |
+| T404 | Branch protection rules on `dev` (manual UI step) | ⏸ blocked (GitHub Pro / public repo) |

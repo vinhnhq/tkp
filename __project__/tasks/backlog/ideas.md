@@ -55,5 +55,5 @@ Four changes, in order of importance:
 4. **Update `release-check.sh` Gate 3** — also check `dev` is up to date with `origin/dev` (your local may be behind the team's). Add `git fetch origin && git rev-list HEAD..origin/dev --count` before the dirty check. 10 min.
 
 **Effort guess:** medium (~1.5h total across 4 commits)
-**Move to:** pick up when a second contributor is genuinely joining the codebase — not earlier. Pre-building for a team that doesn't exist adds overhead without payoff. Solo mode = current workflow.
+**Move to:** ✓ promoted to Sprint 04 on 2026-04-25 (user override of the gate). See [`../sprint-04-team-mode-hardening/plan.md`](../sprint-04-team-mode-hardening/plan.md).
 
