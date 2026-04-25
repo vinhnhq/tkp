@@ -54,7 +54,7 @@ See [plan.md](sprint-04-team-mode-hardening/plan.md) · [todo.md](sprint-04-team
 
 | # | Task | Status |
 |---|------|--------|
-| T401 | GitHub Actions CI workflow (lint + build + unit tests) | · backlog |
-| T402 | `release-check.sh` — origin/dev sync gate | · backlog |
-| T403 | `dev-workflow.md` — team-mode section + branch protection checklist | · backlog |
+| T401 | GitHub Actions CI workflow (lint + build + unit tests) | ✓ done |
+| T402 | `release-check.sh` — origin/dev sync gate | ✓ done |
+| T403 | `dev-workflow.md` — team-mode section + branch protection checklist | ✓ done |
 | T404 | Branch protection rules on `dev` (manual UI step) | ⏸ blocked (GitHub Pro / public repo) |

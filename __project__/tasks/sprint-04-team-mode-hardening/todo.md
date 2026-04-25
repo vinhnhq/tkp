@@ -8,9 +8,11 @@ Three-bucket model from `dev-workflow.md` Phase 2. Committed rows block the rele
 
 ## Committed (must finish to release)
 
-- [ ] **T401** · `.github/workflows/ci.yml` — lint + build + unit tests on PRs to `dev` and `main`; Playwright on PRs to `main` only · ~25 min
-- [ ] **T402** · `scripts/release-check.sh` — Gate 3 sync check against `origin/dev` · ~15 min
-- [ ] **T403** · `dev-workflow.md` — add "Team mode (2+ contributors)" section + branch-protection setup checklist · ~30 min
+- [x] ✓ **T401** · `.github/workflows/ci.yml` — lint + build + unit tests on PRs to `dev` and `main`; Playwright on PRs to `main` only · ~25 min
+- [x] ✓ **T402** · `scripts/release-check.sh` — Gate 3 sync check against `origin/dev` (existing gates renumbered) · ~15 min
+- [x] ✓ **T403** · `dev-workflow.md` — added "Team mode (2+ contributors)" section + Phase 6 gate spec update + branch-protection setup checklist · ~30 min
+
+All committed tasks done — release gate would PASS on sprint status.
 
 ## Blocked
 
