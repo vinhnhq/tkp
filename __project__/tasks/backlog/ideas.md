@@ -57,3 +57,24 @@ Four changes, in order of importance:
 **Effort guess:** medium (~1.5h total across 4 commits)
 **Move to:** ✓ promoted to Sprint 04 on 2026-04-25 (user override of the gate). See [`../sprint-04-team-mode-hardening/plan.md`](../sprint-04-team-mode-hardening/plan.md).
 
+---
+
+## Pre-commit hook to block direct commits to `main`
+
+**Source:** Sprint 04 retro (2026-04-26) captured a misfire — a `docs(retro)` commit landed on local `main` instead of `dev` because the branch model is documented but not enforced locally. Caught before push, recovered via cherry-pick → reset, but the failure mode is real and easy to repeat.
+**Idea:** Add a `core.hooksPath`-managed pre-commit hook (or a husky-style equivalent) that aborts any commit when `git rev-parse --abbrev-ref HEAD == "main"`. Provide an env-var bypass (`ALLOW_MAIN_COMMIT=1`) for the rare release-flow case where the script itself needs to write to main. Prevents the same misfire we just hit, without changing the branch model itself.
+
+Single-line check:
+
+```sh
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] && [ "${ALLOW_MAIN_COMMIT:-0}" != "1" ]; then
+  echo "✗ direct commits to main are blocked — switch to dev or set ALLOW_MAIN_COMMIT=1" >&2
+  exit 1
+fi
+```
+
+Drop into `.git-hooks/pre-commit`, set `git config core.hooksPath .git-hooks` once at setup. Document in dev-workflow.md.
+
+**Effort guess:** small (~20 min including dev-workflow.md doc + a one-liner backlog scaffold step)
+**Move to:** Sprint 05 or whenever next sprint touches the workflow tooling. Not urgent — the misfire recovered cleanly.
+
