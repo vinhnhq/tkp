@@ -58,3 +58,16 @@ See [plan.md](sprint-04-team-mode-hardening/plan.md) · [todo.md](sprint-04-team
 | T402 | `release-check.sh` — origin/dev sync gate | ✓ done |
 | T403 | `dev-workflow.md` — team-mode section + branch protection checklist | ✓ done |
 | T404 | Branch protection rules on `dev` (manual UI step) | ⏸ blocked (GitHub Pro / public repo) |
+
+## Sprint 05 — SEO unblock + filename rename
+See [plan.md](sprint-05-seo-unblock-and-rename/plan.md) · [todo.md](sprint-05-seo-unblock-and-rename/todo.md) · [retro.md](sprint-05-seo-unblock-and-rename/retro.md)
+
+| # | Task | Status |
+|---|------|--------|
+| T501 | `chore(rename): kebab-case layout components` | · committed |
+| T502 | `chore(rename): kebab-case section components` | · committed |
+| T503 | `chore(rename): kebab-case ui components + enable filenaming rule` | · committed |
+| T504 | Typed business config `src/content/shared/business.ts` (sources from `brief.md` §3) | · committed |
+| T505 | Sitewide + homepage metadata wiring (replace Create Next App defaults) | · committed |
+| T506 | Static OG image fallback at `src/app/opengraph-image.tsx` + `twitter-image.tsx` | · committed |
+| T507 | JSON-LD data wiring — `Organization` + `LocalBusiness` + `ContactPoint` sitewide | · committed |
