@@ -2,10 +2,10 @@
 // Modular dashboard grid, blocks of varying sizes.
 // Modern SaaS-adjacent. Each section is a tile.
 
-import { NumberCounter } from "@/components/ui/NumberCounter";
-import { PreviewSwitcher } from "@/components/ui/PreviewSwitcher";
-import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
-import { SmoothScroll } from "@/components/ui/SmoothScroll";
+import { NumberCounter } from "@/components/ui/number-counter";
+import { PreviewSwitcher } from "@/components/ui/preview-switcher";
+import { RevealOnScroll } from "@/components/ui/reveal-on-scroll";
+import { SmoothScroll } from "@/components/ui/smooth-scroll";
 import {
 	contact,
 	customers,

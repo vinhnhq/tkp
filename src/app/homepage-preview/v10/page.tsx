@@ -2,10 +2,10 @@
 // Single narrative column. Film-credit pacing. One idea per screen.
 // Slow-reading brand — user commits to scroll, skim is hostile.
 
-import { NumberCounter } from "@/components/ui/NumberCounter";
-import { PreviewSwitcher } from "@/components/ui/PreviewSwitcher";
-import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
-import { SmoothScroll } from "@/components/ui/SmoothScroll";
+import { NumberCounter } from "@/components/ui/number-counter";
+import { PreviewSwitcher } from "@/components/ui/preview-switcher";
+import { RevealOnScroll } from "@/components/ui/reveal-on-scroll";
+import { SmoothScroll } from "@/components/ui/smooth-scroll";
 import {
 	contact,
 	customers,

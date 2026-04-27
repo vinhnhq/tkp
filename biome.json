@@ -13,5 +13,23 @@
 	},
 	"formatter": { "indentStyle": "tab" },
 	"javascript": { "formatter": { "quoteStyle": "double" } },
-	"linter": { "enabled": true, "rules": { "recommended": true } }
+	"linter": { "enabled": true, "rules": { "recommended": true } },
+	"overrides": [
+		{
+			"includes": ["src/**"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useFilenamingConvention": {
+							"level": "error",
+							"options": {
+								"filenameCases": ["kebab-case"],
+								"requireAscii": true
+							}
+						}
+					}
+				}
+			}
+		}
+	]
 }
