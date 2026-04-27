@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Rebuilding **tkpcarton.com** — Tân Khánh Phong (TKP), a carton/packaging manufacturer (est. 1997, HCMC). Full multilingual site (Vietnamese default, English, Simplified Chinese). See `brief.md` for the full project spec.
+Rebuilding **tkpcarton.com** — Tân Khánh Phong (TKP), a carton/packaging manufacturer in HCMC. Full multilingual site (Vietnamese default, English, Simplified Chinese). See [`__project__/brief.md`](__project__/brief.md) for the full project spec.
 
 ## Stack
 
