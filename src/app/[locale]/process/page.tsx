@@ -1,5 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
-import { UnderConstruction } from "@/components/layout/UnderConstruction";
+import { UnderConstruction } from "@/components/layout/under-construction";
 
 export default async function ProcessPage({
 	params,
