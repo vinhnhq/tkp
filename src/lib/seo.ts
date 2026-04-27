@@ -52,6 +52,12 @@ export type BuildMetadataInput = {
 	description: string;
 	ogImage?: string;
 	siteUrl?: string;
+	/**
+	 * og:site_name. Per-locale value from `og-cards.md` § Brand strings
+	 * (e.g. "Tân Khánh Phong Carton" / "TKP Carton" / "TKP 纸箱").
+	 * Falls back to "Tân Khánh Phong" when not provided.
+	 */
+	siteName?: string;
 };
 
 export function buildMetadata(input: BuildMetadataInput): Metadata {
@@ -76,10 +82,13 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
 
 	const ogImageUrl = input.ogImage
 		? `${siteUrl}${input.ogImage.startsWith("/") ? "" : "/"}${input.ogImage}`
-		: `${siteUrl}/og/default.jpg`;
+		: `${siteUrl}/opengraph-image`;
 
 	return {
-		title: input.title,
+		// `absolute` opts out of the root layout's title.template so titles
+		// authored from `og-cards.md` (which already include brand suffixes
+		// like "· TKP" or "— TKP Carton") don't double-brand.
+		title: { absolute: input.title },
 		description: input.description,
 		alternates: {
 			canonical,
@@ -90,7 +99,7 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
 			title: input.title,
 			description: input.description,
 			url: canonical,
-			siteName: "Tân Khánh Phong",
+			siteName: input.siteName ?? "Tân Khánh Phong",
 			locale: OG_LOCALES[input.locale],
 			images: [{ url: ogImageUrl, width: 1200, height: 630 }],
 		},
