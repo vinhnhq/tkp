@@ -64,10 +64,10 @@ See [plan.md](sprint-05-seo-unblock-and-rename/plan.md) · [todo.md](sprint-05-s
 
 | # | Task | Status |
 |---|------|--------|
-| T501 | `chore(rename): kebab-case layout components` | · committed |
-| T502 | `chore(rename): kebab-case section components` | · committed |
-| T503 | `chore(rename): kebab-case ui components + enable filenaming rule` | · committed |
-| T504 | Typed business config `src/content/shared/business.ts` (sources from `brief.md` §3) | · committed |
-| T505 | Sitewide + homepage metadata wiring (replace Create Next App defaults) | · committed |
-| T506 | Static OG image fallback at `src/app/opengraph-image.tsx` + `twitter-image.tsx` | · committed |
-| T507 | JSON-LD data wiring — `Organization` + `LocalBusiness` + `ContactPoint` sitewide | · committed |
+| T501 | `refactor(sprint-05/T501): rename layout components to kebab-case` | ✓ done |
+| T502 | `refactor(sprint-05/T502): rename section components to kebab-case` | ✓ done |
+| T503 | `refactor(sprint-05/T503): rename ui components to kebab-case + enforce via Biome` | ✓ done |
+| T504 | `feat(sprint-05/T504): typed business config — single source of truth` | ✓ done |
+| T505 | `feat(sprint-05/T505): sitewide + homepage metadata wiring` | ✓ done |
+| T506 | `feat(sprint-05/T506): static OG image fallback (1200×630 kraft card)` | ✓ done |
+| T507 | `feat(sprint-05/T507): inject Organization + LocalBusiness JSON-LD sitewide` | ✓ done |
