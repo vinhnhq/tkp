@@ -49,3 +49,4 @@ raw-assets/
 __tests__/test-results/
 test-results/
 playwright-report/
+.env*.local
