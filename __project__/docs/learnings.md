@@ -51,3 +51,27 @@ Sprint 04 went into the release gate with 0 `· backlog` rows because every non-
 The dev-workflow conventions were invented on TKP (Sprint 03), exercised across two real releases (v0.2.0, v0.3.0), then extracted as `@vinhnnn/dev-workflow` for distribution. The package didn't ship until the conventions had real production miles. Reverse order — packaging an unproven workflow — would have been theatre.
 
 **Promote?** later — could be a small note in `@vinhnnn/dev-workflow`'s README under "Why this exists." Not urgent.
+
+## 2026-04-27 · Parallel worktree agents collapsed a half-day sprint into ~30 min wall-clock
+
+Sprint 05's seven tasks (rename chain T501-T503 + SEO chain T504-T507) ran as two background `isolation: "worktree"` agents in parallel. Track A: 19 file renames + 16 import sites. Track B: typed business config + sitewide metadata + OG image + JSON-LD. Cherry-pick merge produced exactly one conflict on `src/app/[locale]/page.tsx` (A's import path vs B's `generateMetadata` block, disjoint regions) — manual fix took ~30 seconds.
+
+**Promote?** later — pattern worth a one-paragraph entry in `dev-workflow.md` Phase 4 ("when to dispatch parallel agents, what to do beforehand") if it gets used a second time. One data point isn't yet a convention.
+
+## 2026-04-27 · Agent worktrees forked from `main`, not current `dev` HEAD
+
+Both Sprint 05 agents' worktrees anchored to `f863865` (Merge PR #2 on `main`) instead of dev's tip. Track A worked because the dispatch prompt inlined the full task spec; Track B self-rescued with a `git merge dev` as its first action. Default-to-main is non-obvious — anyone repeating the pattern will hit it once and waste time wondering why the agent can't see recent commits.
+
+**Promote?** yes — short note in `dev-workflow.md` under "dispatching parallel agents" (or in CLAUDE.md global guidance). Two reliable mitigations: (a) inline the task spec in the prompt as belt-and-suspenders, (b) tell the agent to `git merge dev` as its first action.
+
+## 2026-04-27 · `satori` does not accept WOFF2
+
+T506's first build of the `next/og` runtime renderer failed with `Unsupported OpenType signature wOF2`. Google Fonts serves WOFF2 by default to modern user agents. Workaround: hit the legacy CSS endpoint (`fonts.googleapis.com/css?...`) with an old `User-Agent` so Google serves WOFF instead. Falls back cleanly to satori's built-in sans-serif if any fetch fails (so the OG card always renders).
+
+**Promote?** later — worth a comment block above the font-loading code in `src/app/opengraph-image.tsx` so the next person doesn't unwind the workaround. Not a project-wide convention yet.
+
+## 2026-04-27 · Pre-defined retro template paid off at sprint close
+
+Sprint 05's retro was filed as a placeholder template at sprint kickoff (sections + `_TBD_` markers, no content). Closing out the sprint became "replace placeholders with real outcomes" rather than "design retro structure from scratch under deadline pressure." Cost ~10 minutes at kickoff, saved at least that much at close.
+
+**Promote?** yes — small change to `dev-workflow.md` Phase 2 (sprint-folder scaffold): the standard sprint folder should ship `plan.md` + `todo.md` + a templated `retro.md` from day one, not just the first two.
