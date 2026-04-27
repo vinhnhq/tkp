@@ -58,3 +58,16 @@ See [plan.md](sprint-04-team-mode-hardening/plan.md) · [todo.md](sprint-04-team
 | T402 | `release-check.sh` — origin/dev sync gate | ✓ done |
 | T403 | `dev-workflow.md` — team-mode section + branch protection checklist | ✓ done |
 | T404 | Branch protection rules on `dev` (manual UI step) | ⏸ blocked (GitHub Pro / public repo) |
+
+## Sprint 05 — SEO unblock + filename rename
+See [plan.md](sprint-05-seo-unblock-and-rename/plan.md) · [todo.md](sprint-05-seo-unblock-and-rename/todo.md) · [retro.md](sprint-05-seo-unblock-and-rename/retro.md)
+
+| # | Task | Status |
+|---|------|--------|
+| T501 | `refactor(sprint-05/T501): rename layout components to kebab-case` | ✓ done |
+| T502 | `refactor(sprint-05/T502): rename section components to kebab-case` | ✓ done |
+| T503 | `refactor(sprint-05/T503): rename ui components to kebab-case + enforce via Biome` | ✓ done |
+| T504 | `feat(sprint-05/T504): typed business config — single source of truth` | ✓ done |
+| T505 | `feat(sprint-05/T505): sitewide + homepage metadata wiring` | ✓ done |
+| T506 | `feat(sprint-05/T506): static OG image fallback (1200×630 kraft card)` | ✓ done |
+| T507 | `feat(sprint-05/T507): inject Organization + LocalBusiness JSON-LD sitewide` | ✓ done |

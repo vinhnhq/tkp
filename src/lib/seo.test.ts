@@ -13,7 +13,7 @@ describe("buildMetadata", () => {
 			siteUrl: SITE,
 		});
 		expect(meta.alternates?.canonical).toBe(`${SITE}/vi/san-pham`);
-		expect(meta.title).toBe("Sản phẩm");
+		expect(meta.title).toEqual({ absolute: "Sản phẩm" });
 		expect(meta.description).toBe("Thùng carton chất lượng cao");
 	});
 

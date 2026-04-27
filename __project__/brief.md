@@ -39,21 +39,18 @@ Re-implement the existing site at <https://www.tkpcarton.com> with:
 
 ### Company facts
 
-- **Legal name (VN)**: Công ty TNHH Sản xuất Bao bì và Thương mại Tân Khánh Phong
+- **Legal name (VN)** _(client-confirmed 2026-04-27)_: Công ty TNHH Sản Xuất Bao Bì Và Thương Mại Tân Khánh Phong
 - **Legal name (EN)**: TAN KHANH PHONG PRODUCING PACKING AND TRADING COMPANY LIMITED
 - **Abbreviated**: TAN KHANH PHONG PACKING CO.,LTD
 - **Brand**: Tân Khánh Phong (TKP) · TKP Carton
 - **Tax code (MST)**: 0310508516
 - **Legal representative**: DƯƠNG QUỚI TƯỜNG (Mr. Duong Quoi Tuong)
-- **Founded**: 1997 ⚠️ — tax registry lists company activity start as **2010-12-10**. Likely reconciliation: family workshop/`hộ kinh doanh` since 1997, limited company formally incorporated 2010. Confirm exact wording with client before using "since 1997" in any marketing copy (tracked in `__project__/tasks/backlog/client-waiting.md` C17).
+- **Founded**: limited company incorporated **2010-12-10** per tax registry. **Public-facing experience phrasing** _(client-confirmed 2026-04-27)_: "hơn 20 năm kinh nghiệm" / "more than 20 years". Do **not** print "since 1997" or any specific founding year — not specifically confirmed.
 - **Location**: HCMC
-- **Address (tax registry)**: 1251 Đường Trần Văn Giàu, Ấp 28, Xã Bình Lợi, TP Hồ Chí Minh
-- **Address (Yellow Pages)**: G2/13 Hamlet 7, Provincial Road 10, Le Minh Xuan Ward, Binh Chanh District, HCMC ⚠️ differs from tax registry — likely administrative renaming or separate office/factory. Confirm with client (`client-waiting.md` C18).
-- **Phones**: 028 3766 1614 (landline) · 0909 66 2808 (hotline) · 028 3766 2868 (alt) · 028 3766 1613 (fax)
-- **Emails seen in public sources** (confirm which is canonical — `client-waiting.md` C01):
-  - `tankhanhphong@tkpcarrton.com` — on current live site, **has typo `tkpcarrton.com`** (double `r`)
-  - `tankhanhphong@tkpcarton.com` — assumed corrected form
-  - `kp_carton@yahoo.com.vn` — listed on Yellow Pages VN
+- **Address (operational / public-facing)** _(client-confirmed 2026-04-27)_: 1249-1251 Trần Văn Giàu (G2/13 Tỉnh lộ 10 cũ), ấp 7, Xã Lê Minh Xuân, Huyện Bình Chánh, TP. Hồ Chí Minh — use for GBP, JSON-LD `LocalBusiness.address`, contact page, Google Maps embed.
+- **Address (tax registry / MST)**: 1251 Đường Trần Văn Giàu, Ấp 28, Xã Bình Lợi, Huyện Bình Chánh, TP. Hồ Chí Minh — use for invoices, legal docs, JSON-LD `Organization.legalAddress` only.
+- **Phones** _(client-confirmed 2026-04-27)_: **0909 662 808** (hotline) · **(028) 3766 1614** (landline) — public-facing pair. Internal/legacy on file: 028 3766 2868 (alt), 028 3766 1613 (fax).
+- **Email** _(client-confirmed 2026-04-27)_: `tankhanhphong@tkpcarton.com` (single `r`, on `tkpcarton.com` domain). Old live site uses typo `tkpcarrton.com` (double `r`) — does not apply to the rebuild. Legacy Yellow Pages listing `kp_carton@yahoo.com.vn` is not canonical.
 - **Business categories (VSIC)**: 1702 (corrugated paper/paperboard manufacturing) · 1811 (printing) · 1812 (printing services) · 4649 · 4659 · 4663
 - **Stats as claimed on live site**: `1997` · `15+` products · `100+` staff · `100+` customers (re-verify "since 1997" per C17)
 

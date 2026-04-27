@@ -12,3 +12,10 @@
 - Tests: passed, 0 known failures
 - Merge: see PR on GitHub
 
+
+## v0.4.0 — 2026-04-27
+
+- Commits ahead of main: 20 (tip: 137b8c1)
+- Tests: passed, 0 known failures
+- Merge: see PR on GitHub
+
