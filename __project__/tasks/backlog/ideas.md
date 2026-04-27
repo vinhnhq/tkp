@@ -38,7 +38,7 @@ macOS note: use two-step `git mv` (`Foo.tsx` → `foo.tmp.tsx` → `foo.tsx`) �
 Verify: `bun run build` + `bun test src/` + `bun run lint` green after each commit.
 
 **Effort guess:** small (~45 min — mechanical)
-**Move to:** pick up before Sprint 04 starts (so Sprint 04 component files land on the new convention from the start)
+**Move to:** ✓ promoted to Sprint 05 on 2026-04-27 (T501-T503). See [`../sprint-05-seo-unblock-and-rename/plan.md`](../sprint-05-seo-unblock-and-rename/plan.md). Actual outcome: 19 files renamed, 16 import sites updated, `useFilenamingConvention` rule active. Confirmed enforcement via deliberate probe.
 
 ---
 
